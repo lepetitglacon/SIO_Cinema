@@ -1,0 +1,81 @@
+@startuml
+
+rectangle Cinema {
+    class Cinema{
+        -id : int
+        -nom : string
+        -nombreSalles : int
+    }
+
+    class Salle {
+        -id : int
+        -nom : string
+        -nombrePlaces : int
+    }
+
+    class Place{
+        -numero `ìd` : int
+    }
+}
+
+rectangle Ville {
+    class Ville{
+        -id : int
+        -nom : string
+        -codePostal : string
+    }
+
+    class Localisation{
+        -longitude : float
+        -latitude : float
+    }
+}
+
+rectangle Projection {
+    class Projection{
+        -id : int
+        -jour : date
+        -prix : float
+    }
+
+    class Seance{
+        -id : int
+        -heure : dateTime
+    }
+
+    class Film{
+        -id : int
+        -nom : string
+        -synopsys : text
+        -duree : int
+        -realisateur : string
+    }
+}
+
+rectangle Ticket {
+    class Ticket{
+            -id : int
+            -nomAcheteur : string
+            -moyenDePayment : string
+            -prix: float
+            -reservé : boolean
+        }
+}
+
+
+Cinema "1..*" - "1" Ville
+Cinema "1" *-- "1..*" Salle
+Cinema "1" *- "1..*" Localisation
+
+Salle "1" *-- "1..*" Place
+Salle "1" - "1..*" Projection
+
+Ville "1" *- "1" Localisation
+
+Projection "1" - "1..*" Seance
+Projection "1..*" -- "1" Film
+
+Seance "1" - "1..*" Ticket
+
+Ticket "1..*" - "1" Place
+@enduml
